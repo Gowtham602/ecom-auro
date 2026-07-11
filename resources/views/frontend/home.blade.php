@@ -28,12 +28,12 @@
                 <div class="card-body d-flex flex-column justify-content-center text-center">
 
                     <h2 class="fw-bold text-primary">
-                        Welcome to Kodai Choco
+                        Welcome to Auro Creation
                     </h2>
 
                     <p class="text-muted mt-3">
-                        Premium Homemade Chocolates, Dry Fruits,
-                        Cakes, Gifts & Special Collections.
+                        Premium
+                     Gifts & Special Collections.
                     </p>
 
                     <a href="#"

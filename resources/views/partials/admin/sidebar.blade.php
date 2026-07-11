@@ -24,7 +24,7 @@
         <li class="menu-title">PRODUCT</li>
 
         <li>
-            <a href="#">
+            <a href="{{ route('category.index') }}">
                 <i class="fa-solid fa-layer-group"></i>
                 <span>Categories</span>
             </a>
