@@ -33,9 +33,23 @@ Route::middleware(['auth','admin'])
         //admin categories 
         Route::get('/category',[CategoryController::class,'index'])
             ->name('category.index');
-        //cate stored
+        //category stored
         Route::post('/category/store',[CategoryController::class,'store'])
             ->name('category.store');
+        //edit    
+        Route::get('/edit/{id}', [CategoryController::class,'edit'])->name('category.edit');
+
+        Route::post('/update/{id}', [CategoryController::class,'update'])->name('category.update');
+
+         Route::delete('/delete/{id}', [CategoryController::class,'destroy'])->name('category.delete');
+
+
+
+        //category list the table
+        Route::get('/category-list', [CategoryController::class, 'getCategory'])
+            ->name('category.list');
+
+        
 
 });
 

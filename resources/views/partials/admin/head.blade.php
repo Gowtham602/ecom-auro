@@ -6,7 +6,7 @@
 
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
-<title>@yield('title','Kodai Choco')</title>
+<title>@yield('title','Auro')</title>
 
 <meta name="description" content="Kodai Choco Premium Handmade Chocolates">
 

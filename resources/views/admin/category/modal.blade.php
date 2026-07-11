@@ -7,12 +7,12 @@
             <form
                 id="categoryForm"
                 enctype="multipart/form-data">
-
+                <input type="hidden" id="category_id" name="category_id">
                 @csrf
 
                 <div class="modal-header">
 
-                    <h5>Add Category</h5>
+                    <h5 id="modalTitle">Add Category</h5>
 
                     <button
                         class="btn-close"

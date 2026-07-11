@@ -9,6 +9,7 @@
         <h3>Category</h3>
 
         <button
+    
             class="btn btn-primary"
             data-bs-toggle="modal"
             data-bs-target="#categoryModal">
@@ -18,6 +19,21 @@
         </button>
 
     </div>
+
+    <table class="table table-bordered" id="categoryTable">
+
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Image</th>
+            <th>Category Name</th>
+            <th>Slug</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+
+</table>
 
 </div>
 
@@ -30,69 +46,228 @@
 <script>
 $(document).ready(function () {
 
-    console.log("jQuery Loaded");
+    console.log("Category Script Loaded");
 
     $("#categoryForm").on("submit", function (e) {
 
-        e.preventDefault();
+    e.preventDefault();
 
-        let formData = new FormData(this);
+    $(".text-danger").text("");
 
-        $.ajax({
+    let id = $("#category_id").val();
 
-            url: "{{ route('category.store') }}",
+    let url = id
+        ? "{{ route('category.update', ':id') }}".replace(":id", id)
+        : "{{ route('category.store') }}";
 
-            type: "POST",
+    let formData = new FormData(this);
 
-            data: formData,
+    $.ajax({
 
-            processData: false,
+        url: url,
+        type: "POST",
+        data: formData,
+        processData: false,
+        contentType: false,
 
-            contentType: false,
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+        },
 
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
+        beforeSend: function () {
 
-            success: function (response) {
+            $("#categoryForm button[type='submit']")
+                .prop("disabled", true)
+                .text("Saving...");
 
-                // alert(response.message);
+        },
 
-                const modal = bootstrap.Modal.getInstance(document.getElementById('categoryModal'));
+        success: function (response) {
 
-                modal.hide();
+            toastr.success(response.message);
 
-                $("#categoryForm")[0].reset();
+            $("#categoryForm")[0].reset();
 
-                $(".text-danger").text("");
+            $("#category_id").val("");
 
-            },
+            $(".text-danger").text("");
 
-            error: function (xhr) {
+            $("#modalTitle").text("Add Category");
 
-                $(".text-danger").text("");
+            bootstrap.Modal.getInstance(
+                document.getElementById("categoryModal")
+            ).hide();
 
-                if (xhr.status == 422) {
+            $("#categoryTable").DataTable().ajax.reload();
 
-                    $.each(xhr.responseJSON.errors, function (key, value) {
+        },
 
-                        $("#" + key + "_error").text(value[0]);
+        error: function (xhr) {
 
-                    });
+            $(".text-danger").text("");
 
-                } else {
+            if (xhr.status == 422) {
 
-                    console.log(xhr.responseText);
+                $.each(xhr.responseJSON.errors, function (key, value) {
 
-                }
+                    $("#" + key + "_error").text(value[0]);
+
+                });
+
+                toastr.warning("Please correct the validation errors.");
+
+            } else {
+
+                toastr.error("Something went wrong.");
+
+                console.log(xhr.responseText);
 
             }
 
-        });
+        },
+
+        complete: function () {
+
+            $("#categoryForm button[type='submit']")
+                .prop("disabled", false)
+                .text("Save");
+
+        }
 
     });
 
 });
+
+});
+
+
+//edit the category 
+$(document).on("click", ".editBtn", function () {
+
+    let id = $(this).data("id");
+
+    let url = "{{ route('category.edit', ':id') }}";
+    url = url.replace(':id', id);
+
+    $.ajax({
+
+        url: url,
+        type: "GET",
+
+        success: function (res) {
+
+            $("#category_id").val(res.id);
+            $("#category_name").val(res.category_name);
+            $("#slug").val(res.slug);
+            $("select[name='status']").val(res.status);
+
+            $("#modalTitle").text("Edit Category");
+
+            $("#categoryModal").modal("show");
+        }
+
+    });
+
+});
+
+
+//deleted 
+
+$(document).on("click", ".deleteBtn", function () {
+
+    let id = $(this).data("id");
+
+    let url = "{{ route('category.delete', ':id') }}";
+    url = url.replace(':id', id);
+
+    Swal.fire({
+
+        title: "Are you sure?",
+        icon: "warning",
+        showCancelButton: true
+
+    }).then((result) => {
+
+        if (result.isConfirmed) {
+
+            $.ajax({
+
+                url: url,
+                type: "DELETE",
+
+                data: {
+                    _token: $('meta[name="csrf-token"]').attr("content")
+                },
+
+                success: function (response) {
+
+                    toastr.success(response.message);
+
+                    $("#categoryTable").DataTable().ajax.reload();
+
+                }
+
+            });
+
+        }
+
+    });
+
+});
+
+
+
+//data tabel 
+$('#categoryTable').DataTable({
+
+    processing: true,
+
+    serverSide: true,
+
+    ajax: "{{ route('category.list') }}",
+
+    columns: [
+
+        {
+            data: 'DT_RowIndex',
+            name: 'DT_RowIndex',
+            orderable: false,
+            searchable: false
+        },
+
+        {
+            data: 'image',
+            name: 'image',
+            orderable: false,
+            searchable: false
+        },
+
+        {
+            data: 'category_name',
+            name: 'category_name'
+        },
+
+        {
+            data: 'slug',
+            name: 'slug'
+        },
+
+        {
+            data: 'status',
+            name: 'status'
+        },
+
+        {
+            data: 'action',
+            name: 'action',
+            orderable: false,
+            searchable: false
+        }
+
+    ]
+
+});
+
 </script>
 
 @endpush
