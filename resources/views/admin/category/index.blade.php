@@ -2,43 +2,29 @@
 
 @section('content')
 
-<div class="container">
+<div class="d-flex flex-column flex-md-row justify-content-between align-items-center mb-3">
 
-    <div class="d-flex justify-content-between align-items-center mb-3">
+    <h3 class="mb-3 mb-md-0">Category</h3>
 
-        <h3>Category</h3>
+    <button
+        class="btn btn-primary rounded-pill w-10"
+        id="addCategoryBtn"
+        data-bs-toggle="modal"
+        data-bs-target="#categoryModal">
 
-        <button
-    
-            class="btn btn-primary"
-            data-bs-toggle="modal"
-            data-bs-target="#categoryModal">
+        <i class="bi bi-folder-plus me-2"></i>
+        Add Category
 
-            Add Category
-
-        </button>
-
-    </div>
-
-    <table class="table table-bordered" id="categoryTable">
-
-    <thead>
-        <tr>
-            <th>#</th>
-            <th>Image</th>
-            <th>Category Name</th>
-            <th>Slug</th>
-            <th>Status</th>
-            <th>Action</th>
-        </tr>
-    </thead>
-
-</table>
+    </button>
 
 </div>
 
-@include('admin.category.modal')
+  
 
+
+
+@include('admin.category.modal')
+@include('admin.category.table')
 @endsection
 
 @push('scripts')
@@ -220,6 +206,9 @@ $(document).on("click", ".deleteBtn", function () {
 //data tabel 
 $('#categoryTable').DataTable({
 
+    responsive: true,
+
+    autoWidth: false,
     processing: true,
 
     serverSide: true,

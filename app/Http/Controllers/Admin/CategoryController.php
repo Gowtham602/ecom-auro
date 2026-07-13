@@ -131,7 +131,7 @@ public function destroy($id)
     // {
     //     unlink(public_path($category->image));
     // }
-    
+
     if ($category->image && file_exists(public_path('uploads/category/' . $category->image))) {
     unlink(public_path('uploads/category/' . $category->image));
     }
@@ -160,7 +160,11 @@ public function getCategory(Request $request)
             ->editColumn('image', function ($row) {
 
                 if ($row->image) {
-                    return '<img src="'.asset('uploads/category/'.$row->image).'" width="60">';
+                    return '<img src="'.asset('uploads/category/'.$row->image).'"
+                    class="rounded"
+                    width="55"
+                    height="55"
+                    style="object-fit:cover;">';
                 }
 
                 return '-';
@@ -175,14 +179,18 @@ public function getCategory(Request $request)
 
             ->addColumn('action', function ($row) {
 
-                return '
-                    <button class="btn btn-sm btn-primary editBtn" data-id="'.$row->id.'">
+               return '
+                <div class="d-flex gap-1">
+
+                    <button class="btn btn-primary btn-sm editBtn" data-id="'.$row->id.'">
                         <i class="bi bi-pencil"></i>
                     </button>
 
-                    <button class="btn btn-sm btn-danger deleteBtn" data-id="'.$row->id.'">
+                    <button class="btn btn-danger btn-sm deleteBtn" data-id="'.$row->id.'">
                         <i class="bi bi-trash"></i>
                     </button>
+
+                </div>
                 ';
             })
 
