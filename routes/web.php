@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
@@ -31,23 +32,32 @@ Route::middleware(['auth','admin'])
             ->name('admin.dashboard');
 
         //admin categories 
-        Route::get('/category',[CategoryController::class,'index'])
-            ->name('category.index');
+        Route::get('/category',[CategoryController::class,'index']) ->name('category.index');
         //category stored
-        Route::post('/category/store',[CategoryController::class,'store'])
-            ->name('category.store');
+        Route::post('/category/store',[CategoryController::class,'store'])->name('category.store');
         //edit    
         Route::get('/edit/{id}', [CategoryController::class,'edit'])->name('category.edit');
 
         Route::post('/update/{id}', [CategoryController::class,'update'])->name('category.update');
 
-         Route::delete('/delete/{id}', [CategoryController::class,'destroy'])->name('category.delete');
-
-
+        Route::delete('/delete/{id}', [CategoryController::class,'destroy'])->name('category.delete');
 
         //category list the table
-        Route::get('/category-list', [CategoryController::class, 'getCategory'])
-            ->name('category.list');
+        Route::get('/category-list', [CategoryController::class, 'getCategory'])->name('category.list');
+
+        // product  list in admin 
+        Route::get('/product',[ProductController::class,'index'])->name('product.index');
+
+        //stored
+        Route::post('product/store', [ProductController::class, 'store'])->name('product.store');
+        // edit the product 
+        Route::get('/products/{product}/edit', [ProductController::class, 'edit'])->name('product.edit');
+        //updated for product in admin 
+        Route::put('/products/{product}', [ProductController::class, 'update'])->name('product.update');
+        //Deleted
+        Route::delete('/products/{product}', [ProductController::class, 'destroy']) ->name('product.destroy');
+        //list 
+        Route::get('/products/list', [ProductController::class, 'getProducts'])->name('product.list');
 
         
 

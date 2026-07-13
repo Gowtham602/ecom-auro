@@ -13,7 +13,6 @@
 <link rel="icon" href="{{ asset('assets/images/favicon.png') }}">
 
 <!-- Google Font -->
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,43 +20,39 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <!-- Bootstrap -->
-
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
 <!-- Bootstrap Icons -->
-
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
 <!-- Font Awesome -->
-
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
-<!-- Swiper Slider -->
-
+<!-- Swiper -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 
-<!-- Animate CSS -->
-
+<!-- Animate -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 
 <!-- Toastr -->
-
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
 <!-- SweetAlert -->
-
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 
-<!-- Custom CSS -->
+<!-- DataTables Bootstrap 5 -->
+<link rel="stylesheet" href="https://cdn.datatables.net/2.3.2/css/dataTables.bootstrap5.css">
 
-<link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+<!-- Responsive -->
+<link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.3/css/responsive.bootstrap5.css">
 
-<link rel="stylesheet" href="{{ asset('assets/css/responsive.css') }}">
-<!-- <link rel="stylesheet" href="{{ asset('assets/css/frontendheader.css') }}"> -->
+<!-- Remove these if they don't exist -->
+{{-- <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}"> --}}
+{{-- <link rel="stylesheet" href="{{ asset('assets/css/responsive.css') }}"> --}}
+
 <style>
 
 :root{
-
     --primary:#8B5CF6;
     --secondary:#A78BFA;
     --light:#F5F3FF;
@@ -67,56 +62,41 @@
     --border:#E5E7EB;
     --orange:#F59E0B;
     --success:#22C55E;
-
 }
 
 *{
-
     margin:0;
     padding:0;
     box-sizing:border-box;
-
 }
 
 body{
-
     font-family:'Poppins',sans-serif;
     background:var(--light);
     color:var(--text);
-
 }
 
 a{
-
     text-decoration:none;
-
 }
 
 img{
-
     max-width:100%;
-
 }
 
 .section-title{
-
     font-size:30px;
     font-weight:700;
     color:var(--dark);
-
 }
 
 .btn-primary{
-
     background:var(--primary);
     border:none;
-
 }
 
 .btn-primary:hover{
-
     background:#6D28D9;
-
 }
 
 </style>

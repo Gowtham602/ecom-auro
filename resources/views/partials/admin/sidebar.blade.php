@@ -31,7 +31,7 @@
         </li>
 
         <li>
-            <a href="#">
+            <a href="{{ route('product.index') }}">
                 <i class="fa-solid fa-box-open"></i>
                 <span>Products</span>
             </a>

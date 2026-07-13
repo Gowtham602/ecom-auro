@@ -3,8 +3,10 @@
 
 <head>
     @include('partials.admin.head')
+    <!-- //for css // -->
+      @stack('styles')
 </head>
-<link rel="stylesheet" href="{{ asset('assets/css/admin.css') }}">
+
 <body>
 
     <div id="wrapper">
@@ -19,7 +21,7 @@
             @include('partials.admin.navbar')
 
             {{-- Page Content --}}
-            <main class="content p-4">
+            <main class="content p-1">
 
                 <div class="container-fluid">
 
