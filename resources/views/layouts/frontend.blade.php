@@ -4,7 +4,7 @@
 <head>
 
     @include('partials.frontend.head')
-
+    @stack('styles')
 </head>
 
 <body>

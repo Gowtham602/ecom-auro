@@ -1,0 +1,61 @@
+.active-category{
+
+    background:#0d6efd;
+
+    color:#fff;
+
+}
+
+.category-scroll{
+
+    overflow-x:auto;
+
+    white-space:nowrap;
+
+    scrollbar-width:none;
+
+}
+
+.category-scroll::-webkit-scrollbar{
+
+    display:none;
+
+}
+
+.category-card{
+
+    min-width:150px;
+
+    background:#fff;
+
+    border-radius:15px;
+
+    padding:15px;
+
+    text-align:center;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+
+}
+
+.category-card:hover{
+
+    transform:translateY(-5px);
+
+    box-shadow:0 10px 25px rgba(0,0,0,.15);
+
+}
+
+.category-card img{
+
+    width:80px;
+
+    height:80px;
+
+    object-fit:contain;
+
+}
