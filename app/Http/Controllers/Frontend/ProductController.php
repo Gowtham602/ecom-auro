@@ -8,7 +8,7 @@ use App\Models\Category;
 use App\Models\Product;
 class ProductController extends Controller
 {
- public function categoryProducts($slug)
+public function categoryProducts($slug)
 {
     $category = Category::where('slug',$slug)->firstOrFail();
 

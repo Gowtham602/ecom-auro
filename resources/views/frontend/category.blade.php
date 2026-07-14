@@ -1,37 +1,30 @@
-<section class="container my-5">
+<section class="category-header py-5">
 
-    <h3 class="mb-4">
+    <div class="container">
 
-        Shop By Category
+        <!-- Breadcrumb -->
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb justify-content-center mb-2">
+                <li class="breadcrumb-item">
+                    <a href="{{ url('/') }}">Home</a>
+                </li>
+                <li class="breadcrumb-item active">
+                    {{ $categories->category_name }}
+                </li>
+            </ol>
+        </nav>
 
-    </h3>
+        <!-- Title -->
+        <h2 class="category-title">
+            {{ $categories->category_name }}
+        </h2>
 
-    <div class="row">
-
-        @foreach($categories as $category)
-
-        <div class="col-lg-2 col-md-3 col-6 mb-4">
-
-            <a href="{{ route('category.products',$category->slug) }}">
-
-                <div class="category-card text-center">
-
-                    <img src="{{ asset('uploads/category/'.$category->image) }}"
-                         class="img-fluid">
-
-                    <h6 class="mt-2">
-
-                        {{ $category->category_name }}
-
-                    </h6>
-
-                </div>
-
-            </a>
-
-        </div>
-
-        @endforeach
+        <!-- Description -->
+        @if($categories->description)
+            <div class="category-description">
+                {{ $categories->description }}
+            </div>
+        @endif
 
     </div>
 

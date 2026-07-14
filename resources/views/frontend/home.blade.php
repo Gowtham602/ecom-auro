@@ -1,17 +1,13 @@
 @extends('layouts.frontend')
 
-@section('title','Home')
-
+@section('title','Aura Curations')
 @push('styles')
 
-<link rel="stylesheet" href="{{ asset('assets/css/frontend/category/categories.css') }}">
+<!-- <link rel="stylesheet" href="{{ asset('assets/css/frontend/categrory/categories.css') }}"> -->
 <link rel="stylesheet" href="{{ asset('assets/css/frontend/product/products.css') }}">
 
 @endpush
-
 @section('content')
-
-<!-- Hero Banner -->
 
 <section class="container mt-4">
 
@@ -49,17 +45,54 @@
     </div>
 
 </section>
+<section class="category-section py-5">
 
-@include('frontend.category')
+    <div class="container">
 
-@include('frontend.product')
+        <div class="section-title text-center mb-5">
+
+            <h2>Shop By Category</h2>
+
+            <p>Discover our beautiful jewellery collections for every occasion.</p>
+
+        </div>
+
+        <div class="row g-4">
+
+            @foreach($categories as $category)
+
+            <div class="col-6 col-md-4 col-lg-2">
+
+                <a href="{{ route('category.products',$category->slug) }}"
+                    class="category-card">
+
+                    <div class="category-image">
+
+                        <img
+                            src="{{ asset('uploads/category/'.$category->image) }}"
+                            alt="{{ $category->category_name }}"
+                            loading="lazy">
+
+                    </div>
+
+                    <div class="category-content">
+
+                        <h6>
+                            {{ $category->category_name }}
+                        </h6>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+            @endforeach
+
+        </div>
+
+    </div>
+
+</section>
 
 @endsection
-
-@push('scripts')
-
-<script src="{{ asset('assets/js/frontend/category/categories.js') }}"></script>
-
-<script src="{{ asset('assets/js/frontend/product/products.js') }}"></script>
-
-@endpush

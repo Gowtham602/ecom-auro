@@ -5,7 +5,7 @@
     <div class="d-flex justify-content-between align-items-center mb-4">
 
         <h3 class="fw-bold">
-            Shop By Category
+            Shop By Category 1
         </h3>
 
         <a href="#" class="text-decoration-none">

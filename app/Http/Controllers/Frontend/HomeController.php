@@ -10,15 +10,15 @@ use App\Models\Product;
 class HomeController extends Controller
 {
     
-    public function index()
+  public function index()
 {
     $categories = Category::where('status',1)->get();
 
     $products = Product::where('status',1)
-                    ->latest()
-                    ->get();
+                ->latest()
+                ->get();
 
-    return view('frontend.home',compact('categories','products'));
+    return view('frontend.home', compact('categories','products'));
 }
 
 
