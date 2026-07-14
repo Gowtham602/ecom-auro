@@ -103,11 +103,13 @@
 
                 <div class="mt-4 d-grid gap-3">
 
-                    <button class="btn-cart">
+                    <button
+                        class="btn-cart addToCart"
+                        data-id="{{ $product->id }}">
                         🛒 Add to Cart
                     </button>
 
-                    <button class="btn-buy">
+                    <button class="btn-buy">    
                         ⚡ Buy Now
                     </button>
 
@@ -132,19 +134,36 @@
         </div>
 
     </div>
+    <div class="floating-cart" id="floatingCart">
+
+
+    
+    <div>
+        <h6 class="mb-0">View Cart</h6>
+        <small>
+            <span id="cartItems">0</span> item(s) • ₹<span id="cartTotal">0</span>
+        </small>
+    </div>
+
+    <a href="{{ route('cart.index') }}" class="btn btn-light rounded-pill">
+        Open →
+    </a>
+
+</div>
 
 </section>
-<script>
-document.querySelector(".plus").onclick = function () {
-    let qty = document.querySelector(".qty-input");
-    qty.value = parseInt(qty.value) + 1;
-};
 
-document.querySelector(".minus").onclick = function () {
-    let qty = document.querySelector(".qty-input");
-    if (parseInt(qty.value) > 1) {
-        qty.value = parseInt(qty.value) - 1;
-    }
-};
-</script>
 @endsection
+@push('scripts')
+
+<script>
+    const csrfToken = "{{ csrf_token() }}";
+    const cartAddUrl = "{{ route('cart.add') }}";
+    const cartCountUrl = "{{ route('cart.count') }}";
+    const loginUrl = "{{ route('login') }}";
+    const cartSummaryUrl = "{{ route('cart.summary') }}";
+</script>
+
+<script src="{{ asset('assets/js/frontend/product/details.js') }}"></script>
+
+@endpush
