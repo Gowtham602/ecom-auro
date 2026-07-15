@@ -1,5 +1,6 @@
 $(document).ready(function () {
 
+    
     // Quantity Increase
     $(".plus").click(function () {
 
@@ -65,6 +66,7 @@ if (!isAuthenticated) {
     }
 
     loadCartCount();
+    loadFloatingCart();
 
 });
 
@@ -77,7 +79,7 @@ function addToCart(product)
 {
 
     let button = $(".addToCart");
-
+  console.log("Add to Cart called");
     button.prop("disabled", true);
 
     $.ajax({

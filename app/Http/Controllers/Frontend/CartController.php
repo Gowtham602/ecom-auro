@@ -9,14 +9,18 @@ use Illuminate\Support\Facades\Auth;
   
 class CartController extends Controller
 {
-    public function index()
-    {
-        $carts = Cart::with('product')
-            ->where('user_id',Auth::id())
-            ->get();
+   public function index()
+{
+    $carts = Cart::with('product.category')
+                ->where('user_id', auth()->id())
+                ->get();
 
-        return view('frontend.cart.index',compact('carts'));
-    }
+    $grand = $carts->sum(function ($cart) {
+        return $cart->quantity * $cart->product->price;
+    });
+
+    return view('frontend.cart.index', compact('carts', 'grand'));
+}
 
   
 
@@ -60,30 +64,65 @@ public function add(Request $request)
         'total'   => $total ?? 0,
     ]);
 }
-   public function update(Request $request)
+ public function update(Request $request)
 {
     $request->validate([
-        'cart_id' => 'required',
+        'cart_id'  => 'required|exists:carts,id',
         'quantity' => 'required|integer|min:1',
     ]);
 
-    $cart = Cart::where('id', $request->cart_id)
+    $cart = Cart::with('product')
+        ->where('id', $request->cart_id)
         ->where('user_id', Auth::id())
         ->firstOrFail();
 
     $cart->quantity = $request->quantity;
     $cart->save();
 
-    return back();
+    $itemTotal = $cart->quantity * $cart->product->price;
+
+    $grand = Cart::where('user_id', Auth::id())
+        ->join('products', 'products.id', '=', 'carts.product_id')
+        ->selectRaw('COALESCE(SUM(carts.quantity * products.price),0) as total')
+        ->value('total');
+
+    $count = Cart::where('user_id', Auth::id())->sum('quantity');
+
+    return response()->json([
+        'status'    => true,
+        'itemTotal' => $itemTotal,
+        'grand'     => $grand,
+        'count'     => $count,
+    ]);
 }
 
-    public function remove($id)
+public function remove($id)
 {
-    Cart::where('id', $id)
+    $cart = Cart::where('id', $id)
         ->where('user_id', Auth::id())
-        ->delete();
+        ->first();
 
-    return back();
+    if (!$cart) {
+        return response()->json([
+            'status' => false,
+            'message' => 'Cart item not found.'
+        ], 404);
+    }
+
+    $cart->delete();
+
+    $grand = Cart::where('user_id', Auth::id())
+        ->join('products', 'products.id', '=', 'carts.product_id')
+        ->selectRaw('COALESCE(SUM(carts.quantity * products.price),0) as total')
+        ->value('total');
+
+    $count = Cart::where('user_id', Auth::id())->sum('quantity');
+
+    return response()->json([
+        'status' => true,
+        'grand'  => $grand,
+        'count'  => $count
+    ]);
 }
 
     public function count()
@@ -107,7 +146,17 @@ public function add(Request $request)
     ]);
 }
 
+private function cartSummary()
+{
+    return [
+        'grand' => Cart::where('user_id', Auth::id())
+            ->join('products', 'products.id', '=', 'carts.product_id')
+            ->selectRaw('COALESCE(SUM(carts.quantity * products.price),0) as total')
+            ->value('total'),
 
+        'count' => Cart::where('user_id', Auth::id())->sum('quantity')
+    ];
+}
 
 //guest not login but add to card login and stored in session 
 public function storePendingCart(Request $request)

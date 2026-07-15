@@ -1,154 +1,259 @@
 @extends('layouts.frontend')
 
+@section('title', 'Shopping Cart')
+
+@push('styles')
+<link rel="stylesheet" href="{{ asset('assets/css/frontend/cart/cart.css') }}">
+@endpush
+
 @section('content')
 
-<div class="container py-5">
+<div class="container py-4">
 
-<h3>Shopping Cart</h3>
+    {{-- Header --}}
+    <div class="d-flex justify-content-between align-items-center flex-wrap mb-4">
 
-<table class="table">
+        <div class="d-flex align-items-center">
 
-<thead>
+            <div class="cart-icon-box me-3">
+                <i class="fas fa-shopping-bag"></i>
+            </div>
 
-<tr>
+            <div>
+                <h2 class="fw-bold mb-0">Your Bag</h2>
+                <small class="text-muted">
+                    Review your selected items
+                </small>
+            </div>
 
-<th>Image</th>
+        </div>
 
-<th>Name</th>
+        <a href="{{ route('home') }}" class="btn btn-back">
+            <i class="fas fa-arrow-left me-2"></i>
+            Back to Shop
+        </a>
 
-<th>Price</th>
+    </div>
 
-<th>Qty</th>
+    <div class="row">
 
-<th>Total</th>
+        {{-- Cart Items --}}
+        <div class="col-lg-8">
 
-<th>Action</th>
+            @forelse($carts as $cart)
 
-</tr>
+            @php
+                $itemTotal = $cart->quantity * $cart->product->price;
+            @endphp
 
-</thead>
+            <div class="cart-card mb-4">
 
-<tbody>
+                <div class="row align-items-center">
 
-@php
+                    {{-- Product Image --}}
+                    <div class="col-lg-2 col-md-3 col-4">
 
-$grand=0;
+                        <img
+                            src="{{ asset('uploads/products/'.$cart->product->thumbnail) }}"
+                            class="cart-image"
+                            alt="{{ $cart->product->product_name }}">
 
-@endphp
+                    </div>
 
-@foreach($carts as $cart)
+                    {{-- Product Details --}}
+                    <div class="col-lg-5 col-md-5 col-8">
 
-@php
+                        <h5 class="fw-bold mb-2">
 
-$total=$cart->quantity*$cart->product->price;
+                            {{ $cart->product->product_name }}
 
-$grand+=$total;
+                        </h5>
 
-@endphp
+                        <div class="text-muted small mb-2">
 
-<tr>
+                            {{ $cart->product->category->category_name }}
 
-<td>
+                        </div>
 
-<img src="{{ asset('uploads/products/'.$cart->product->thumbnail) }}"
-width="80">
+                        <h6 class="price">
 
-</td>
+                            ₹{{ number_format($cart->product->price) }}
 
-<td>
+                        </h6>
 
-{{ $cart->product->product_name }}
+                    </div>
 
-</td>
+                    {{-- Quantity --}}
+                    <div class="col-lg-3 col-md-4 mt-md-0 mt-3">
 
-<td>
+                        <div class="qty-box">
 
-₹{{ number_format($cart->product->price) }}
+                            <button
+                                class="qty-btn decreaseQty"
+                                data-id="{{ $cart->id }}">
+                                -
+                            </button>
 
-</td>
+                           <input
+                            type="text"
+                            class="qty-input"
+                            data-id="{{ $cart->id }}"
+                            value="{{ $cart->quantity }}"
+                            readonly>
 
-<td>
+                            <button
+                                class="qty-btn increaseQty"
+                                data-id="{{ $cart->id }}">
+                                +
+                            </button>
 
-<form action="{{ route('cart.update') }}" method="POST">
+                        </div>
 
-@csrf
+                    </div>
 
-<input type="hidden"
-name="cart_id"
-value="{{ $cart->id }}">
+                    {{-- Total & Delete --}}
+                    <div class="col-lg-2 text-lg-end text-start mt-lg-0 mt-3">
 
-<input
-type="number"
-name="quantity"
-value="{{ $cart->quantity }}"
-min="1">
+                        <h5 class="fw-bold mb-3 item-total">
 
-<button class="btn btn-primary btn-sm">
+                            ₹{{ number_format($itemTotal) }}
 
-Update
+                        </h5>
 
-</button>
+                        
+                        <button
+    class="btn-remove"
+    data-url="{{ route('cart.remove',$cart->id) }}"> <i class="fas fa-trash-alt"></i></button>
 
-</form>
+                    </div>
 
-</td>
+                </div>
 
-<td>
+            </div>
 
-₹{{ number_format($total) }}
+            @empty
 
-</td>
+            <div class="empty-cart text-center">
 
-<td>
+                <img
+                    src="{{ asset('assets/images/empty-cart.png') }}"
+                    class="img-fluid mb-4"
+                    width="250">
 
-<form action="{{ route('cart.remove',$cart->id) }}"
-method="POST">
+                <h3>Your Cart is Empty</h3>
 
-@csrf
+                <p class="text-muted">
 
-@method('DELETE')
+                    Looks like you haven't added anything yet.
 
-<button
-class="btn btn-danger">
+                </p>
 
-Remove
+                <a href="{{ route('home') }}" class="btn btn-warning px-5">
 
-</button>
+                    Continue Shopping
 
-</form>
+                </a>
 
-</td>
+            </div>
 
-</tr>
+            @endforelse
 
-@endforeach
+        </div>
 
-</tbody>
+        {{-- Price Summary --}}
+        <div class="col-lg-4">
 
-<tfoot>
+            <div class="summary-card">
 
-<tr>
+                <h5 class="summary-title">
 
-<th colspan="4">
+                    PRICE DETAILS
 
-Grand Total
+                </h5>
 
-</th>
+                <hr>
 
-<th>
+                <div class="summary-row">
 
-₹{{ number_format($grand) }}
+                    <span>
+                        Price
+                    </span>
 
-</th>
+                    <strong id="subTotal">
 
-<th></th>
+                        ₹{{ number_format($grand) }}
 
-</tr>
+                    </strong>
 
-</tfoot>
+                </div>
 
-</table>
+                <div class="summary-row">
+
+                    <span>
+                        Delivery Charges
+                    </span>
+
+                    <span class="text-success">
+
+                        FREE
+
+                    </span>
+
+                </div>
+
+                <hr>
+
+                <div class="summary-row total">
+
+                    <span>
+
+                        Total Amount
+
+                    </span>
+
+                    <strong id="grandTotal">
+
+                        ₹{{ number_format($grand) }}
+
+                    </strong>
+
+                </div>
+
+                <button class="btn btn-place-order">
+
+                    PLACE ORDER
+
+                </button>
+
+                <div class="secure-payment">
+
+                    <i class="fas fa-lock"></i>
+
+                    Safe & Secure Payments
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
 
 </div>
 
 @endsection
+
+@push('scripts')
+<script>
+    const csrfToken = "{{ csrf_token() }}";
+
+    const cartRoutes = {
+        update: "{{ route('cart.update') }}",
+        remove: "{{ url('/cart/remove') }}",
+        summary: "{{ route('cart.summary') }}",
+        count: "{{ route('cart.count') }}"
+    };
+</script>
+
+<script src="{{ asset('assets/js/frontend/cart/cart.js') }}"></script>
+@endpush
