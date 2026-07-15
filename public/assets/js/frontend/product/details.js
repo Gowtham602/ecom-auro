@@ -4,7 +4,6 @@ $(document).ready(function () {
     $(".plus").click(function () {
 
         let qty = $(".qty-input");
-
         qty.val(parseInt(qty.val()) + 1);
 
     });
@@ -15,33 +14,86 @@ $(document).ready(function () {
         let qty = $(".qty-input");
 
         if (parseInt(qty.val()) > 1) {
-
             qty.val(parseInt(qty.val()) - 1);
-
         }
 
     });
 
-    // Add to Cart
-   $(".addToCart").click(function () {
+    // Add To Cart Button
+    $(".addToCart").click(function () {
 
-    let button = $(this);
+        let product = {
+            product_id: $(this).data("id"),
+            quantity: $(".qty-input").val()
+        };
 
-    if (button.prop("disabled")) {
-        return;
+        // Guest User
+        // Guest User
+if (!isAuthenticated) {
+
+    // Save the current product
+    sessionStorage.setItem("pending_cart", JSON.stringify({
+        product_id: product.product_id,
+        quantity: product.quantity
+    }));
+
+    // Save the current page URL
+    sessionStorage.setItem(
+        "redirect_after_login",
+        window.location.href
+    );
+
+    // Redirect to Login
+    window.location.href = loginUrl;
+
+    return;
+}
+
+        addToCart(product);
+
+    });
+
+    // Auto Add After Login
+    let pendingCart = sessionStorage.getItem("pending_cart");
+
+    if (pendingCart && isAuthenticated) {
+
+        addToCart(JSON.parse(pendingCart));
+
+        sessionStorage.removeItem("pending_cart");
+
     }
+
+    loadCartCount();
+
+});
+
+
+// ------------------------------
+// Add To Cart Function
+// ------------------------------
+
+function addToCart(product)
+{
+
+    let button = $(".addToCart");
 
     button.prop("disabled", true);
 
     $.ajax({
 
         url: cartAddUrl,
+
         type: "POST",
 
         data: {
+
             _token: csrfToken,
-            product_id: button.data("id"),
-            quantity: $(".qty-input").val()
+
+            product_id: product.product_id,
+
+            quantity: product.quantity
+
         },
 
         success: function (res) {
@@ -49,18 +101,21 @@ $(document).ready(function () {
             toastr.success(res.message);
 
             loadCartCount();
-             $("#cartItems").text(res.items);
-    $("#cartTotal").text(res.total);
-    loadFloatingCart();
 
-    $("#floatingCart").fadeIn();
+            loadFloatingCart();
+
+            $("#cartItems").text(res.items);
+
+            $("#cartTotal").text(res.total);
+
+            $("#floatingCart").fadeIn();
 
             button.html('<i class="fas fa-check"></i> Added');
 
             setTimeout(function () {
 
                 button
-                    .html('🛒 Add to Cart')
+                    .html("🛒 Add to Cart")
                     .prop("disabled", false);
 
             }, 2000);
@@ -69,33 +124,70 @@ $(document).ready(function () {
 
         error: function () {
 
-            button.prop("disabled", false);
+            if (xhr.status === 401) {
+
+    $.ajax({
+
+        url: storePendingCartUrl,
+
+        type: "POST",
+
+        data: {
+
+            _token: csrfToken,
+
+            product_id: button.data("id"),
+
+            quantity: $(".qty-input").val(),
+             url: window.location.href
+
+        },
+
+        success: function () {
+
+            window.location.href = loginUrl;
 
         }
 
     });
 
-});
+    return;
+}
 
-    function loadCartCount() {
+        }
 
-        $.get(cartCountUrl, function (data) {
+    });
 
-            $(".cart-count").text(data);
+}
 
-        });
 
-    }
+// ------------------------------
+// Cart Count
+// ------------------------------
 
-    loadCartCount();
+function loadCartCount()
+{
 
-});
+    $.get(cartCountUrl, function (count) {
 
-function loadFloatingCart() {
+        $(".cart-count").text(count);
+
+    });
+
+}
+
+
+// ------------------------------
+// Floating Cart
+// ------------------------------
+
+function loadFloatingCart()
+{
 
     $.get(cartSummaryUrl, function (res) {
 
         $("#cartItems").text(res.items);
+
         $("#cartTotal").text(res.total);
 
         if (res.items > 0) {

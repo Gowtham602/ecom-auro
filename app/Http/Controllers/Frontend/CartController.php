@@ -22,19 +22,28 @@ class CartController extends Controller
 
 public function add(Request $request)
 {
+    $request->validate([
+        'product_id' => 'required|exists:products,id',
+        'quantity'   => 'required|integer|min:1',
+    ]);
+
     $cart = Cart::where('user_id', Auth::id())
-                ->where('product_id', $request->product_id)
-                ->first();
+        ->where('product_id', $request->product_id)
+        ->first();
 
     if ($cart) {
+
         $cart->quantity += $request->quantity;
         $cart->save();
+
     } else {
+
         Cart::create([
-            'user_id' => Auth::id(),
+            'user_id'    => Auth::id(),
             'product_id' => $request->product_id,
-            'quantity' => $request->quantity,
+            'quantity'   => $request->quantity,
         ]);
+
     }
 
     $items = Cart::where('user_id', Auth::id())->sum('quantity');
@@ -45,30 +54,37 @@ public function add(Request $request)
         ->value('total');
 
     return response()->json([
-        'status' => true,
-        'message' => 'Product added successfully',
-        'items' => $items,
-        'total' => $total ?? 0,
+        'status'  => true,
+        'message' => 'Product added successfully.',
+        'items'   => $items,
+        'total'   => $total ?? 0,
     ]);
 }
+   public function update(Request $request)
+{
+    $request->validate([
+        'cart_id' => 'required',
+        'quantity' => 'required|integer|min:1',
+    ]);
 
-    public function update(Request $request)
-    {
-        $cart = Cart::findOrFail($request->cart_id);
+    $cart = Cart::where('id', $request->cart_id)
+        ->where('user_id', Auth::id())
+        ->firstOrFail();
 
-        $cart->quantity = $request->quantity;
+    $cart->quantity = $request->quantity;
+    $cart->save();
 
-        $cart->save();
-
-        return back();
-    }
+    return back();
+}
 
     public function remove($id)
-    {
-        Cart::findOrFail($id)->delete();
+{
+    Cart::where('id', $id)
+        ->where('user_id', Auth::id())
+        ->delete();
 
-        return back();
-    }
+    return back();
+}
 
     public function count()
     {
@@ -90,4 +106,28 @@ public function add(Request $request)
         'total' => $total ?? 0
     ]);
 }
+
+
+
+//guest not login but add to card login and stored in session 
+public function storePendingCart(Request $request)
+{
+    $request->validate([
+        'product_id' => 'required|exists:products,id',
+        'quantity'   => 'required|integer|min:1',
+    ]);
+
+    session([
+        'pending_cart' => [
+            'product_id' => $request->product_id,
+            'quantity'   => $request->quantity,
+            'url'        => $request->url,
+        ]
+    ]);
+
+    return response()->json([
+        'status' => true
+    ]);
+}
+
 }

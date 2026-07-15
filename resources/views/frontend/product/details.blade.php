@@ -160,8 +160,11 @@
     const csrfToken = "{{ csrf_token() }}";
     const cartAddUrl = "{{ route('cart.add') }}";
     const cartCountUrl = "{{ route('cart.count') }}";
-    const loginUrl = "{{ route('login') }}";
     const cartSummaryUrl = "{{ route('cart.summary') }}";
+    const loginUrl = "{{ route('login') }}";
+
+const storePendingCartUrl = "{{ route('cart.store.pending') }}";
+    const isAuthenticated = @json(auth()->check());
 </script>
 
 <script src="{{ asset('assets/js/frontend/product/details.js') }}"></script>

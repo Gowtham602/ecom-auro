@@ -28,6 +28,27 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
         $user = auth()->user();
+        $user = auth()->user();
+
+if (session()->has('pending_cart')) {
+
+    $pending = session('pending_cart');
+
+    $cart = Cart::firstOrNew([
+        'user_id' => $user->id,
+        'product_id' => $pending['product_id'],
+    ]);
+
+    $cart->quantity += $pending['quantity'];
+
+    $cart->save();
+
+    $url = $pending['url'];
+
+    session()->forget('pending_cart');
+
+    return redirect($url);
+}
 
         if ($user->role->slug == 'admin') {
     
@@ -35,7 +56,7 @@ class AuthenticatedSessionController extends Controller
         }
     
         return redirect()->route('home');
-
+        // return redirect()->intended(route('home'));
         // return redirect()->intended(route('dashboard', absolute: false));
         
     }

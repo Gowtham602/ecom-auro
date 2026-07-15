@@ -46,13 +46,31 @@ class RegisteredUserController extends Controller
 
       
 
-        Auth::login($user);
+       Auth::login($user);
+if (session()->has('pending_cart')) {
 
-        if ($user->role->slug == 'admin') {
-        
-            return redirect()->route('admin.dashboard');
-        }
-        
-        return redirect()->route('home');
+    $pending = session('pending_cart');
+
+    $cart = Cart::firstOrNew([
+        'user_id' => $user->id,
+        'product_id' => $pending['product_id'],
+    ]);
+
+    $cart->quantity += $pending['quantity'];
+
+    $cart->save();
+
+    $url = $pending['url'];
+
+    session()->forget('pending_cart');
+
+    return redirect($url);
+}
+if ($user->role_id == 1) {
+
+    return redirect()->route('admin.dashboard');
+}
+
+return redirect()->intended(route('home'));
     }
 }

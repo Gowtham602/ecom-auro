@@ -15,7 +15,8 @@ Route::get('/category/{slug}', [ProductController::class, 'categoryProducts'])
 Route::get('/product/{slug}', [ProductController::class, 'productDetails'])
     ->name('product.details');
 
-
+Route::post('/cart/store-pending', [CartController::class, 'storePendingCart'])
+    ->name('cart.store.pending');
 Route::middleware('auth')->group(function () {
 
     Route::post('/cart/add',[CartController::class,'add'])
@@ -36,4 +37,5 @@ Route::middleware('auth')->group(function () {
     Route::get('/cart/summary', [CartController::class, 'summary'])
     ->name('cart.summary');
 
+   
 });
