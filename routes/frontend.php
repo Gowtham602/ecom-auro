@@ -53,5 +53,19 @@ use App\Http\Controllers\Frontend\OrderController;
     // order controller 
      Route::post('/place-order', [OrderController::class, 'placeOrder'])
         ->name('place.order');
+
+    Route::post('/place-order', [OrderController::class, 'placeOrder'])
+        ->name('place.order');
+
+    Route::post('/verify-payment', [OrderController::class, 'verifyPayment'])
+        ->name('verify.payment');
+
+    Route::get('/order-success/{order}', [OrderController::class, 'success'])
+    ->name('orders.success');
+
+    //order for payment using  webhook
+    Route::post('/razorpay/webhook', [OrderController::class, 'webhook'])
+    ->name('razorpay.webhook');
+
    
 });

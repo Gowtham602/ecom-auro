@@ -18,7 +18,7 @@ class CheckoutController extends Controller
     //     if ($carts->count() == 0) {
     //         return redirect()->route('cart.index')
     //             ->with('error', 'Your cart is empty.');
-    //     }
+    //     }a
 
     //     $grand = 0;
 

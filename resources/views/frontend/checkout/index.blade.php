@@ -79,10 +79,17 @@
 
 @push('scripts')
 
+
+<!-- //razorpay -->
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
 <script>
     window.appConfig = {
-        placeOrderUrl: "{{ route('place.order') }}"
-    };
+    placeOrderUrl: "{{ route('place.order') }}",
+    verifyPaymentUrl: "{{ route('verify.payment') }}",
+    csrfToken: "{{ csrf_token() }}",
+    appName: "{{ config('app.name') }}"
+};
 </script>
 
 <script src="{{ asset('assets/js/frontend/address/address.js') }}"></script>
