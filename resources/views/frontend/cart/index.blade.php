@@ -219,11 +219,16 @@
 
                 </div>
 
-                <button class="btn btn-place-order">
+                @if($carts->count())
 
-                    PLACE ORDER
+<a href="{{ route('checkout.index') }}"
+    class="btn btn-place-order w-100">
 
-                </button>
+    PLACE ORDER 2
+
+</a>
+
+@endif
 
                 <div class="secure-payment">
 

@@ -2,22 +2,24 @@
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\ProductController;
 use App\Http\Controllers\Frontend\CartController;
-
+use App\Http\Controllers\Frontend\AddressController;
+use App\Http\Controllers\Frontend\CheckoutController;
+use App\Http\Controllers\Frontend\OrderController;
 
 
   
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
+    Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get('/category/{slug}', [ProductController::class, 'categoryProducts'])
-    ->name('category.products');
+    Route::get('/category/{slug}', [ProductController::class, 'categoryProducts'])
+        ->name('category.products');
 
-Route::get('/product/{slug}', [ProductController::class, 'productDetails'])
-    ->name('product.details');
+    Route::get('/product/{slug}', [ProductController::class, 'productDetails'])
+        ->name('product.details');
 
-Route::post('/cart/store-pending', [CartController::class, 'storePendingCart'])
-    ->name('cart.store.pending');
-Route::middleware('auth')->group(function () {
+    Route::post('/cart/store-pending', [CartController::class, 'storePendingCart'])
+        ->name('cart.store.pending');
+    Route::middleware('auth')->group(function () {
 
     Route::post('/cart/add',[CartController::class,'add'])
         ->name('cart.add');
@@ -37,5 +39,19 @@ Route::middleware('auth')->group(function () {
     Route::get('/cart/summary', [CartController::class, 'summary'])
     ->name('cart.summary');
 
+    //after add to card checkout controller 
+    Route::get('/checkout', [CheckoutController::class, 'index'])
+        ->name('checkout.index');
+
+    //address controller
+    Route::resource('address', AddressController::class);
+
+
+    Route::post('/address/default/{id}',[AddressController::class,'setDefault'])
+        ->name('address.default');
+
+    // order controller 
+     Route::post('/place-order', [OrderController::class, 'placeOrder'])
+        ->name('place.order');
    
 });

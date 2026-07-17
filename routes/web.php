@@ -60,6 +60,8 @@ Route::middleware(['auth','admin'])
         Route::get('/products/list', [ProductController::class, 'getProducts'])->name('product.list');
 
         
+        
+
 
 });
 
