@@ -9,32 +9,67 @@
 @endpush
 @section('content')
 
-<section class="container mt-0">
+<!-- ================= HERO SECTION ================= -->
 
-    <div class="row">
+<section class="hero-section py-4">
 
-        <div class="col-lg-8">
+    <div class="container">
 
-            <img src="{{ asset('assets/images/banner.png') }}"
-                 class="img-fluid rounded-4">
+        <div class="row g-4 align-items-stretch">
 
-        </div>
+            <!-- Banner -->
 
-        <div class="col-lg-4">
+            <div class="col-lg-8">
 
-            <div class="card h-100 shadow">
+                <div class="hero-banner">
 
-                <div class="card-body text-center d-flex flex-column justify-content-center">
+                    <img src="{{ asset('assets/images/banner.png') }}"
+                         alt="Aura Curations"
+                         class="img-fluid w-100">
 
-                    <h2>Welcome to Auro Creation</h2>
+                </div>
 
-                    <p>Premium Gifts & Collections</p>
+            </div>
 
-                    <a href="#" class="btn btn-warning">
+            <!-- Welcome Card -->
 
-                        Shop Now
+            <div class="col-lg-4">
 
-                    </a>
+                <div class="hero-card">
+
+                    <span class="hero-badge">
+
+                        ✨ Premium Collection
+
+                    </span>
+
+                    <h2>
+
+                        Welcome to
+
+                        <span>Aura Curations</span>
+
+                    </h2>
+
+                    <p>
+
+                        Discover premium gifts, handcrafted collections and
+                        exclusive products designed for every occasion.
+
+                    </p>
+
+                    <div class="d-grid">
+
+                        <a href="#"
+                           class="btn hero-btn">
+
+                            Shop Now
+
+                            <i class="fas fa-arrow-right ms-2"></i>
+
+                        </a>
+
+                    </div>
 
                 </div>
 

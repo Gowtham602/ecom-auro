@@ -382,3 +382,219 @@ button{
     } */
 
 }
+
+
+/*====================================
+        HERO SECTION
+====================================*/
+
+.hero-section{
+    padding:20px 0 40px;
+}
+
+/* Banner */
+
+.hero-banner{
+    height:100%;
+    overflow:hidden;
+    border-radius:22px;
+    background:#fff;
+    box-shadow:0 12px 30px rgba(0,0,0,.08);
+}
+
+.hero-banner img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transition:.4s ease;
+}
+
+.hero-banner:hover img{
+    transform:scale(1.03);
+}
+
+/* Card */
+
+.hero-card{
+
+    height:100%;
+
+    background:#fff;
+
+    border-radius:22px;
+
+    padding:35px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    text-align:center;
+
+    box-shadow:0 12px 30px rgba(0,0,0,.08);
+
+}
+
+.hero-badge{
+
+    display:inline-block;
+
+    margin:0 auto 20px;
+
+    padding:8px 18px;
+
+    border-radius:50px;
+
+    background:#F3E8FF;
+
+    color:#7C3AED;
+
+    font-size:13px;
+
+    font-weight:600;
+
+}
+
+.hero-card h2{
+
+    font-size:38px;
+
+    font-weight:700;
+
+    color:#222;
+
+    margin-bottom:15px;
+
+    line-height:1.3;
+
+}
+
+.hero-card h2 span{
+
+    color:#7C3AED;
+
+}
+
+.hero-card p{
+
+    color:#666;
+
+    font-size:16px;
+
+    line-height:28px;
+
+    margin-bottom:30px;
+
+}
+
+.hero-btn{
+
+    background:linear-gradient(135deg,#7C3AED,#A855F7);
+
+    color:#fff;
+
+    border:none;
+
+    border-radius:50px;
+
+    padding:14px 25px;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    transition:.35s;
+
+}
+
+.hero-btn:hover{
+
+    color:#fff;
+
+    transform:translateY(-3px);
+
+    box-shadow:0 10px 25px rgba(124,58,237,.30);
+
+}
+
+/*====================================
+        MOBILE
+====================================*/
+
+@media(max-width:991px){
+
+.hero-section{
+
+    padding:15px 0 25px;
+
+}
+
+.hero-card{
+
+    margin-top:5px;
+
+    padding:25px;
+
+}
+
+.hero-card h2{
+
+    font-size:28px;
+
+}
+
+.hero-card p{
+
+    font-size:15px;
+
+    line-height:24px;
+
+}
+
+.hero-btn{
+
+    width:100%;
+
+}
+
+}
+
+@media(max-width:576px){
+
+.hero-banner{
+
+    border-radius:16px;
+
+}
+
+.hero-card{
+
+    border-radius:16px;
+
+    padding:20px;
+
+}
+
+.hero-card h2{
+
+    font-size:24px;
+
+}
+
+.hero-card p{
+
+    margin-bottom:20px;
+
+}
+
+.hero-btn{
+
+    padding:12px;
+
+    font-size:15px;
+
+}
+
+}
