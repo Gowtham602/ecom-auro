@@ -109,7 +109,7 @@ body{
 /* ===========================
    SEARCH
 =========================== */
-
+/* 
 .mobile-search{
     position:fixed;
     top:68px;
@@ -131,7 +131,7 @@ body{
 .input-group .btn{
     border-radius:0 8px 8px 0;
     width:55px;
-}
+} */
 
 /* ===========================
    HEADER RIGHT
@@ -220,9 +220,9 @@ body{
         padding-bottom:0;
     }
 
-    .mobile-search{
+    /* .mobile-search{
         display:none;
-    }
+    } */
 
     .logo{
         justify-content:flex-start;
@@ -288,12 +288,97 @@ body{
 .dropdown-item{
     padding:10px 18px;
 }
-
 /* ===========================
    SMOOTH TRANSITION
 =========================== */
 
 a,
 button{
-    transition:.3s;
+    transition:all .3s ease;
+}
+
+/* ===========================
+   MOBILE TOP SLIDER
+=========================== */
+
+.mobile-top-info{
+    display:none;
+}
+
+/* ===========================
+   MOBILE
+=========================== */
+
+@media (max-width:991px){
+
+    .mobile-top-info{
+        display:block;
+        position:fixed;
+        top:0;
+        left:0;
+        width:100%;
+        height:40px;
+        background:linear-gradient(90deg,#e992bb,#9F67F8,#eecfe7);
+        color:#fff;
+        z-index:1060;
+        overflow:hidden;
+        box-shadow:0 2px 8px rgba(0,0,0,.15);
+    }
+
+    .top-slider{
+        position:relative;
+        width:100%;
+        height:40px;
+    }
+
+    .top-item{
+        position:absolute;
+        top:0;
+        left:0;
+        width:100%;
+        height:40px;
+
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        gap:8px;
+
+        opacity:0;
+        transform:translateY(100%);
+        transition:all .5s ease;
+    }
+
+    .top-item.active{
+        opacity:1;
+        transform:translateY(0);
+    }
+
+    .top-item i{
+        color:#FFD54F;
+        font-size:15px;
+    }
+
+    .top-item a,
+    .top-item span{
+        color:#fff;
+        text-decoration:none;
+        font-size:13px;
+        font-weight:600;
+    }
+
+    /* Header below top slider */
+    .main-header{
+        top:40px;
+    }
+
+    /* Search below header */
+    /* .mobile-search{
+        top:108px;
+    } */
+
+    /* Body spacing */
+    /* body{
+        padding-top:160px;
+    } */
+
 }

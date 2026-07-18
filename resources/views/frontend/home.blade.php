@@ -9,7 +9,7 @@
 @endpush
 @section('content')
 
-<section class="container mt-4">
+<section class="container mt-0">
 
     <div class="row">
 
