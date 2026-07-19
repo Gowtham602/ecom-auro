@@ -1,0 +1,306 @@
+/*=========================================
+            HERO SECTION
+=========================================*/
+
+.hero-section{
+    padding:20px 0;
+}
+
+/*=========================================
+            SLIDER
+=========================================*/
+
+#heroSlider{
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 15px 35px rgba(0,0,0,.12);
+    background:#fff;
+}
+
+.carousel-item{
+    position:relative;
+}
+
+/*=========================================
+            IMAGE
+=========================================*/
+
+.hero-image{
+    width:100%;
+    height:480px;
+    object-fit:cover;
+    display:block;
+}
+
+/*=========================================
+            OVERLAY
+=========================================*/
+
+.hero-overlay{
+
+    position:absolute;
+    inset:0;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-end;
+
+    padding:45px;
+
+    color:#fff;
+
+    background:linear-gradient(
+        to top,
+        rgba(0,0,0,.72) 0%,
+        rgba(0,0,0,.35) 45%,
+        rgba(0,0,0,0) 100%
+    );
+
+}
+
+/*=========================================
+            TAG
+=========================================*/
+
+.hero-tag{
+
+    width:max-content;
+
+    padding:8px 18px;
+
+    background:#8B5CF6;
+
+    color:#fff;
+
+    border-radius:30px;
+
+    font-size:13px;
+
+    font-weight:600;
+
+    margin-bottom:15px;
+
+}
+
+/*=========================================
+            TITLE
+=========================================*/
+
+.hero-overlay h1{
+
+    font-size:46px;
+
+    font-weight:700;
+
+    line-height:1.2;
+
+    margin-bottom:15px;
+
+    max-width:600px;
+
+}
+
+/*=========================================
+            DESCRIPTION
+=========================================*/
+
+.hero-overlay p{
+
+    font-size:18px;
+
+    line-height:1.7;
+
+    max-width:520px;
+
+    margin-bottom:25px;
+
+}
+
+/*=========================================
+            BUTTON
+=========================================*/
+
+.hero-btn{
+
+    width:max-content;
+
+    padding:12px 30px;
+
+    border-radius:50px;
+
+    background:#fff;
+
+    color:#5A189A;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+.hero-btn:hover{
+
+    background:#5A189A;
+
+    color:#fff;
+
+}
+
+/*=========================================
+        PREV NEXT BUTTON
+=========================================*/
+
+.carousel-control-prev,
+.carousel-control-next{
+
+    width:48px;
+    height:48px;
+
+    top:50%;
+
+    transform:translateY(-50%);
+
+    background:rgba(255,255,255,.25);
+
+    border-radius:50%;
+
+}
+
+.carousel-control-prev{
+
+    left:20px;
+
+}
+
+.carousel-control-next{
+
+    right:20px;
+
+}
+
+/*=========================================
+        INDICATORS
+=========================================*/
+
+.carousel-indicators{
+
+    margin-bottom:18px;
+
+}
+
+.carousel-indicators button{
+
+    width:10px !important;
+
+    height:10px !important;
+
+    border-radius:50%;
+
+}
+
+/*=========================================
+            TABLET
+=========================================*/
+
+@media (max-width:991px){
+
+.hero-image{
+
+    height:320px;
+
+}
+
+.hero-overlay{
+
+    padding:30px;
+
+}
+
+.hero-overlay h1{
+
+    font-size:32px;
+
+}
+
+.hero-overlay p{
+
+    font-size:15px;
+
+}
+
+}
+
+/*=========================================
+            MOBILE
+=========================================*/
+
+@media (max-width:576px){
+
+.hero-section{
+
+    padding:12px 0;
+
+}
+
+.hero-image{
+
+    height:240px;
+
+}
+
+.hero-overlay{
+
+    padding:18px;
+
+}
+
+.hero-tag{
+
+    font-size:11px;
+
+    padding:6px 14px;
+
+    margin-bottom:10px;
+
+}
+
+.hero-overlay h1{
+
+    font-size:24px;
+
+    margin-bottom:8px;
+
+}
+
+.hero-overlay p{
+
+    font-size:13px;
+
+    line-height:1.5;
+
+    margin-bottom:15px;
+
+}
+
+.hero-btn{
+
+    padding:10px 22px;
+
+    font-size:14px;
+
+}
+
+.carousel-control-prev,
+.carousel-control-next{
+
+    display:none;
+
+}
+.hero-btn{
+        width: 120px;
+        padding: 8px 0;
+        font-size: 13px;
+        text-align: center;
+    }
+
+}
