@@ -2,11 +2,15 @@
 
     <div class="container">
 
-        <div class="section-title text-center mb-5">
+        <div class="section-heading">
+
+            <span>SHOP COLLECTION</span>
 
             <h2>Shop By Category</h2>
 
-            <p>Discover our beautiful jewellery collections for every occasion.</p>
+            <p>
+                Discover premium jewellery & fashion accessories.
+            </p>
 
         </div>
 

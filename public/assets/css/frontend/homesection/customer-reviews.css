@@ -1,0 +1,223 @@
+/*=====================================
+        CUSTOMER REVIEWS
+=====================================*/
+
+.reviews-section{
+
+    padding:10px 0;
+
+    background:#faf8fd;
+
+}
+
+/* Heading */
+
+.section-heading{
+
+    margin-bottom:50px;
+
+}
+
+.section-tag{
+
+    display:inline-block;
+
+    background:#EFE7FB;
+
+    color:#8B5CF6;
+
+    /* padding:8px 18px; */
+
+    border-radius:30px;
+
+    font-size:13px;
+
+    font-weight:600;
+
+    margin-bottom:15px;
+
+}
+
+.section-heading h2{
+
+    font-size:40px;
+
+    font-weight:700;
+
+    color:#2D2544;
+
+}
+
+.brand-text{
+
+    color:#8B5CF6;
+
+}
+
+.section-heading p{
+
+    color:#777;
+
+    font-size:16px;
+
+    max-width:650px;
+
+    margin:15px auto 0;
+
+}
+
+/* Review Card */
+
+.review-card{
+
+    background:#fff;
+
+    border-radius:20px;
+
+    padding:30px;
+
+    height:100%;
+
+    transition:.35s;
+
+    border:1px solid #f1ebff;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.05);
+
+}
+
+.review-card:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:0 20px 40px rgba(139,92,246,.15);
+
+}
+
+.review-stars{
+
+    color:#FFC107;
+
+    margin-bottom:18px;
+
+}
+
+.review-stars i{
+
+    margin-right:3px;
+
+}
+
+.review-card p{
+
+    color:#666;
+
+    line-height:1.8;
+
+    font-size:15px;
+
+    margin-bottom:25px;
+
+}
+
+/* Customer */
+
+.review-user{
+
+    display:flex;
+
+    align-items:center;
+
+}
+
+.review-user img{
+
+    width:60px;
+
+    height:60px;
+
+    border-radius:50%;
+
+    object-fit:cover;
+
+    margin-right:15px;
+
+    border:3px solid #EFE7FB;
+
+}
+
+.review-user h5{
+
+    margin:0;
+
+    font-size:17px;
+
+    color:#2D2544;
+
+    font-weight:600;
+
+}
+
+.review-user span{
+
+    color:#8B5CF6;
+
+    font-size:14px;
+
+}
+
+/* Mobile */
+
+@media(max-width:576px){
+
+.reviews-section{
+
+    padding:10px 0;
+
+}
+
+.section-heading h2{
+
+    font-size:28px;
+
+}
+
+.section-heading p{
+
+    font-size:14px;
+
+}
+
+.review-card{
+
+    padding:22px;
+
+}
+
+.review-card p{
+
+    font-size:14px;
+
+}
+
+.review-user img{
+
+    width:50px;
+
+    height:50px;
+
+}
+
+.review-user h5{
+
+    font-size:15px;
+
+}
+
+.review-user span{
+
+    font-size:13px;
+
+}
+
+}

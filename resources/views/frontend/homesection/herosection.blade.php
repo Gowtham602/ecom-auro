@@ -61,7 +61,7 @@
                 <!-- Slide 2 -->
                 <div class="carousel-item">
 
-                    <img src="{{ asset('assets/images/banner2.png') }}"
+                    <img src="{{ asset('assets/images/banner4.png') }}"
                          class="hero-image"
                          alt="Jewellery Collection">
 
@@ -71,17 +71,17 @@
                             EXCLUSIVE
                         </span>
 
-                        <h1>
+                        <!-- <h1>
                             Premium Jewellery Collection
-                        </h1>
+                        </h1> -->
 
-                        <p>
+                        <!-- <p>
                             Beautiful collections crafted to complement your style.
-                        </p>
+                        </p> -->
 
-                        <a href="#" class="btn hero-btn">
+                        <!-- <a href="#" class="btn hero-btn">
                             Explore
-                        </a>
+                        </a> -->
 
                     </div>
 
