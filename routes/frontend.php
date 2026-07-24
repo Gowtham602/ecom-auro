@@ -1,4 +1,5 @@
 <?php
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\ProductController;
 use App\Http\Controllers\Frontend\CartController;
@@ -56,6 +57,15 @@ use App\Http\Controllers\Frontend\OrderController;
 
     Route::post('/place-order', [OrderController::class, 'placeOrder'])
         ->name('place.order');
+
+         // my order 
+    Route::get('/my-orders', [OrderController::class, 'index'])
+        ->name('orders.index');
+        
+    // order for particular user 
+    Route::get('/my-orders/{order}', [OrderController::class, 'show'])
+    ->name('orders.show');
+    
 
     Route::post('/verify-payment', [OrderController::class, 'verifyPayment'])
         ->name('verify.payment');

@@ -1,39 +1,49 @@
 <!-- Mobile Bottom Navigation -->
 
+<!-- ================= Mobile Bottom Navigation ================= -->
 <div class="mobile-bottom-nav d-lg-none">
 
+    <!-- Home -->
     <a href="{{ route('home') }}"
-       class="{{ request()->routeIs('home') ? 'active' : '' }}">
+        class="{{ request()->routeIs('home') ? 'active' : '' }}">
 
         <i class="fa-solid fa-house"></i>
-
         <span>Home</span>
 
     </a>
 
-    <a href="#"
-       class="{{ request()->routeIs('category.*') ? 'active' : '' }}">
+    <!-- Category -->
+    <a href="{{ route('home') }}"
+        class="{{ request()->routeIs('category.products') ? 'active' : '' }}">
 
         <i class="fa-solid fa-layer-group"></i>
-
         <span>Category</span>
 
     </a>
 
-    <a href="#"
-       class="position-relative">
+    <!-- Cart -->
+    <a href="{{ route('cart.index') }}"
+        class="position-relative {{ request()->routeIs('cart.*') ? 'active' : '' }}">
 
         <i class="fa-solid fa-cart-shopping"></i>
 
         <span>Cart</span>
 
-        <span class="cart-count">0</span>
+        @auth
+            <span class="cart-count">
+                {{ \App\Models\Cart::where('user_id', auth()->id())->count() }}
+            </span>
+        @else
+            <span class="cart-count">0</span>
+        @endauth
 
     </a>
 
+    <!-- Login / Profile -->
     @guest
 
-        <a href="{{ route('login') }}">
+        <a href="{{ route('login') }}"
+            class="{{ request()->routeIs('login') ? 'active' : '' }}">
 
             <i class="fa-solid fa-right-to-bracket"></i>
 
@@ -43,7 +53,8 @@
 
     @else
 
-        <a href="#">
+        <a href="#"
+            class="{{ request()->routeIs('dashboard') ? 'active' : '' }}">
 
             <i class="fa-solid fa-user"></i>
 

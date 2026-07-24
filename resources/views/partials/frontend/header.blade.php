@@ -34,10 +34,8 @@
             <!-- Mobile Menu -->
             <div class="col-2 d-lg-none">
 
-                <button class="btn p-0 border-0 shadow-none"
-                        type="button"
-                        data-bs-toggle="offcanvas"
-                        data-bs-target="#mobileMenu">
+                <button class="btn p-0 border-0 shadow-none" type="button" data-bs-toggle="offcanvas"
+                    data-bs-target="#mobileMenu">
 
                     <i class="fas fa-bars text-white fs-3"></i>
 
@@ -71,9 +69,7 @@
 
                     <div class="input-group">
 
-                        <input type="text"
-                               class="form-control search-box"
-                               placeholder="Search Products...">
+                        <input type="text" class="form-control search-box" placeholder="Search Products...">
 
                         <button class="btn btn-warning">
 
@@ -104,8 +100,7 @@
 
                     @guest
 
-                        <a href="{{ route('login') }}"
-                           class="btn btn-light rounded-pill px-3 d-none d-lg-inline">
+                        <a href="{{ route('login') }}" class="btn btn-light rounded-pill px-3 d-none d-lg-inline">
                             Login
                         </a>
 
@@ -113,9 +108,7 @@
 
                         <div class="dropdown d-none d-lg-block">
 
-                            <a href="#"
-                               class="text-white text-decoration-none dropdown-toggle"
-                               data-bs-toggle="dropdown">
+                            <a href="#" class="text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown">
 
                                 {{ Auth::user()->name }}
 
@@ -137,12 +130,13 @@
                                     </a>
                                 </li>
 
-                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
 
                                 <li>
 
-                                    <form method="POST"
-                                          action="{{ route('logout') }}">
+                                    <form method="POST" action="{{ route('logout') }}">
 
                                         @csrf
 
@@ -173,9 +167,9 @@
     </div>
 
 </header>
-   
 
-    <!-- ================= MOBILE SEARCH ================= -->
+
+<!-- ================= MOBILE SEARCH ================= -->
 <!-- 
     <div class="mobile-search d-lg-none">
 
@@ -206,129 +200,107 @@
 
     </div> -->
 
-    <!-- ================= MOBILE SIDEBAR ================= -->
+<!-- ================= MOBILE SIDEBAR ================= -->
 
-    <div
-        class="offcanvas offcanvas-start"
-        tabindex="-1"
-        id="mobileMenu">
+<div class="offcanvas offcanvas-start" tabindex="-1" id="mobileMenu">
 
-        <div class="offcanvas-header">
+    <div class="offcanvas-header">
 
-            <h5 class="mb-0">
+        <h5 class="mb-0">
 
-                Aura curaions
+            Aura curaions
 
-            </h5>
+        </h5>
 
-            <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="offcanvas">
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas">
 
-            </button>
-
-        </div>
-
-        <div class="offcanvas-body">
-
-            <ul class="list-group list-group-flush">
-
-                <a
-                    href="{{ route('home') }}"
-                    class="list-group-item">
-
-                    <i class="fas fa-house me-2"></i>
-
-                    Home
-
-                </a>
-
-                <a
-                    href="#"
-                    class="list-group-item">
-
-                    <i class="fas fa-layer-group me-2"></i>
-
-                    Categories
-
-                </a>
-
-                <a
-                    href="#"
-                    class="list-group-item">
-
-                    <i class="fas fa-box me-2"></i>
-
-                    Products
-
-                </a>
-
-                <a
-                    href="#"
-                    class="list-group-item">
-
-                    <i class="fas fa-phone me-2"></i>
-
-                    Contact Us
-
-                </a>
-
-                @guest
-
-                    <a
-                        href="{{ route('login') }}"
-                        class="list-group-item">
-
-                        <i class="fas fa-right-to-bracket me-2"></i>
-
-                        Login
-
-                    </a>
-
-                    <a
-                        href="{{ route('register') }}"
-                        class="list-group-item">
-
-                        <i class="fas fa-user-plus me-2"></i>
-
-                        Register
-
-                    </a>
-
-                @else
-
-                    <a
-                        href="#"
-                        class="list-group-item">
-
-                        <i class="fas fa-user me-2"></i>
-
-                        {{ Auth::user()->name }}
-
-                    </a>
-
-                    <form
-                        action="{{ route('logout') }}"
-                        method="POST">
-
-                        @csrf
-
-                        <button
-                            class="list-group-item w-100 text-start border-0 bg-white">
-
-                            <i class="fas fa-right-from-bracket me-2"></i>
-
-                            Logout
-
-                        </button>
-
-                    </form>
-
-                @endguest
-
-            </ul>
-
-        </div>
+        </button>
 
     </div>
+
+    <div class="offcanvas-body">
+
+        <ul class="list-group list-group-flush">
+
+            <a href="{{ route('home') }}" class="list-group-item {{ request()->routeIs('home') ? 'active' : '' }}">
+                <i class="fas fa-house me-2"></i>
+                Home
+            </a>
+
+            <a href="#" class="list-group-item {{ request()->routeIs('category.*') ? 'active' : '' }}">
+                <i class="fas fa-layer-group me-2"></i>
+                Categories
+            </a>
+
+            <a href="#" class="list-group-item">
+
+                <i class="fas fa-box me-2"></i>
+
+                Products
+
+            </a>
+
+            <a href="{{ route('orders.index') }}"
+                class="list-group-item {{ request()->routeIs('orders.*') ? 'active' : '' }}">
+                <i class="fas fa-bag-shopping me-2"></i>
+                My Orders
+            </a>
+
+
+            <a href="#" class="list-group-item">
+
+                <i class="fas fa-phone me-2"></i>
+
+                Contact Us
+
+            </a>
+
+            @guest
+
+                <a href="{{ route('login') }}" class="list-group-item">
+
+                    <i class="fas fa-right-to-bracket me-2"></i>
+
+                    Login
+
+                </a>
+
+                <a href="{{ route('register') }}" class="list-group-item">
+
+                    <i class="fas fa-user-plus me-2"></i>
+
+                    Register
+
+                </a>
+
+            @else
+
+                <a href="#" class="list-group-item">
+
+                    <i class="fas fa-user me-2"></i>
+
+                    {{ Auth::user()->name }}
+
+                </a>
+
+                <form action="{{ route('logout') }}" method="POST">
+
+                    @csrf
+
+                    <button class="list-group-item w-100 text-start border-0 bg-white">
+
+                        <i class="fas fa-right-from-bracket me-2"></i>
+
+                        Logout
+
+                    </button>
+
+                </form>
+
+            @endguest
+
+        </ul>
+
+    </div>
+
+</div>

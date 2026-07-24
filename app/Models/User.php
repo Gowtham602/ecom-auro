@@ -28,6 +28,10 @@ class User extends Authenticatable
     public function role(){
         return $this->belongsTo(Role::class);
     }
+    public function orders()
+{
+    return $this->hasMany(Order::class);
+}
 
     /**
      * The attributes that should be hidden for serialization.
